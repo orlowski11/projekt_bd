@@ -1,6 +1,6 @@
 <?php 
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\DB;
 ?>
 
 <!DOCTYPE html>
@@ -153,7 +153,8 @@ use Illuminate\Support\Facades\Auth;
             @if (Route::has('login'))
                 <div class="login">
                     @auth
-                    	<?php $id=Auth::id();
+                    	<?php 
+                    	   $id=Auth::id();
                     	   $admin=Auth::user()->admin;
                         echo "<a href=/users/$id class=logintext>Profil</a>";
                         if($admin){
@@ -163,7 +164,9 @@ use Illuminate\Support\Facades\Auth;
                         <a href="{{ route('home') }}" class="logintext">Konto</a>
                     @else
                         <a href="{{ route('login') }}" class="logintext">Login</a>
-
+                        <?php 
+							$id=null;
+							?>
                         @if (Route::has('register'))
                             <a href="{{ route('register') }}" class="logintext">Rejestracja</a>
                         @endif
@@ -178,9 +181,10 @@ use Illuminate\Support\Facades\Auth;
        			<p>Czas trwania: {{ $film->Length }} minut</p>
        			<p>Rezyseria: {{ $film->Director }}</p>
        			<p>{{ $film->Description }}</p>
+       			
        			<form method="GET">
        				<?php
-       				use Illuminate\Support\Facades\DB;
+       				if($id!=null){
        				$filmid = "{$film->id}";
        				$results = DB::select('select * from favourite where Film_ID = ? && User_ID = ?',[$filmid,$id]);
        				
@@ -191,12 +195,12 @@ use Illuminate\Support\Facades\Auth;
                         if(count($results)==0){
                             echo "<input type=submit class='submit' name='add' value='Dodaj do ulubionych'>";
                         }
-                      
+       				}
        				?>
 				</form>
 				
 				<?php 
-				
+				    
 				        if(isset($_GET['add']) && count($results)==0){
 				            DB::insert('insert into favourite (User_ID,Film_ID) values (?, ?)', [$id, $filmid]);
 				            header("Refresh:0");
@@ -207,6 +211,7 @@ use Illuminate\Support\Facades\Auth;
                             header("Refresh:0");
                         }
                 ?>
+
        		</div>
        </div>
     </body>

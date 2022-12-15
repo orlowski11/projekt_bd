@@ -77,7 +77,7 @@ use Illuminate\Support\Facades\Auth;
             .content{
                 position:fixed;
                 text-align:left;
-                top:24%;
+                top:20%;
                 left:10%;
                 right:10%;
             }
@@ -166,7 +166,11 @@ use Illuminate\Support\Facades\Auth;
        				<p>Czas trwania:  <input type="text" name="length"></p>
 					<input type="submit" name="addFilm" value="Dodaj film">
 					<br><br><br>
-					<p>Film_ID:  <input type="text" name="id"></p>
+					<p>Film_ID:  <input type="text" name="id1"></p>
+					<p>Gatunek:  <input type="text" name="genre"></p>
+					<input type="submit" name="addGenre" value="Przypisz gatunek">
+					<br><br><br>
+					<p>Film_ID:  <input type="text" name="id2"></p>
 					<input type="submit" name="delFilm" value="Usun film">
 					<br><br><br>
 					<p>Nazwa uzytkownika:  <input type="text" name="name"></p>
